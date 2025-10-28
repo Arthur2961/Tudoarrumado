@@ -1,0 +1,30 @@
+﻿@model List<GerenciadorJogos.Models.Jogo>
+<h1>Lista de Jogos</h1>
+<p><a asp-action="Create" class="btn btn-primary">Adicionar Novo Jogo</a></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Ano</th>
+            <th>Plataformas</th>
+            <th>Gêneros</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jogo in Model)
+        {
+            <tr>
+                <td>@jogo.Titulo</td>
+                <td>@jogo.Ano</td>
+                <td>@string.Join(", ", jogo.JogoPlataformas.Select(jp => jp.Plataforma.Nome))</td>
+                <td>@string.Join(", ", jogo.JogoGeneros.Select(jg => jg.Genero.Nome))</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@jogo.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@jogo.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@jogo.Id">Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

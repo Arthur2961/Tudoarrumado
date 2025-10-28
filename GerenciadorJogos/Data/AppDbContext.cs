@@ -46,7 +46,7 @@ namespace GerenciadorJogos.Data
 
             modelBuilder.Entity<JogoGenero>()
                 .HasOne(jg => jg.Genero)
-                .WithMany()
+                .WithMany(g => g.JogoGeneros)
                 .HasForeignKey(jg => jg.GeneroId);
 
            
