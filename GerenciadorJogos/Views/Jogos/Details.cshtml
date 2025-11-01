@@ -1,36 +1,117 @@
 ﻿@model GerenciadorJogos.Models.Jogo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Jogo";
 }
 
-<h1>Details</h1>
+<style>
+    body {
+        background-color: #0b1c26;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+    }
 
-<div>
-    <h4>Jogo</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ano)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ano)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Capa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Capa)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    .detalhes-container {
+        text-align: center;
+        padding: 40px;
+    }
+
+    .titulo-pagina {
+        color: #00ffff;
+        text-shadow: 0 0 10px #00ffff;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+    }
+
+    .detalhes-card {
+        background-color: #111;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        padding: 20px;
+        width: 60%;
+        margin: 0 auto;
+        border: 1px solid #00ffff;
+    }
+
+    .titulo-secao {
+        color: #00ffff;
+        margin-bottom: 10px;
+    }
+
+    .info-jogo p {
+        font-size: 1.2em;
+        margin: 10px 0;
+    }
+
+    .imagem-container {
+        margin: 20px 0;
+    }
+
+    .imagem-capa {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px #00ffff;
+        border: 2px solid #00ffff;
+    }
+
+    .botoes {
+        margin-top: 20px;
+    }
+
+    .btn-editar,
+    .btn-voltar {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-editar {
+        background-color: #00bfff;
+        color: #fff;
+    }
+
+    .btn-editar:hover {
+        background-color: #009acd;
+    }
+
+    .btn-voltar {
+        background-color: #444;
+        color: #fff;
+    }
+
+    .btn-voltar:hover {
+        background-color: #666;
+    }
+</style>
+
+<div class="detalhes-container">
+    <h1 class="titulo-pagina">Detalhes do Jogo</h1>
+
+    <div class="detalhes-card">
+        <h2 class="titulo-secao">Jogo</h2>
+        <hr />
+
+        <div class="info-jogo">
+            <p><strong>Título:</strong> @Model.Titulo</p>
+
+            <p><strong>Ano:</strong> @Model.Ano</p>
+
+            <p><strong>Capa:</strong></p>
+            <div class="imagem-container">
+                <img src="@Model.Capa" alt="@Model.Titulo" class="imagem-capa" />
+            </div>
+        </div>
+
+        <div class="botoes">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-editar">Editar</a>
+            <a asp-action="Index" class="btn-voltar">Voltar</a>
+        </div>
+    </div>
 </div>
