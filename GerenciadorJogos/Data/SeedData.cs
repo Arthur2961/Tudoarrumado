@@ -53,7 +53,7 @@ namespace GerenciadorJogos.Data.Seeds
         private static void SeedJogos(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Jogo>().HasData(
-                
+
                 new Jogo
                 {
                     Id = 1,
@@ -90,7 +90,7 @@ namespace GerenciadorJogos.Data.Seeds
                     Capa = "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/588650/capsule_616x353.jpg?t=1757600364"
                 },
 
-              
+
                 new Jogo
                 {
                     Id = 6,
@@ -127,7 +127,7 @@ namespace GerenciadorJogos.Data.Seeds
                     Capa = "https://upload.wikimedia.org/wikipedia/en/1/15/Bloodborne_Cover.jpg"
                 },
 
-              
+
                 new Jogo
                 {
                     Id = 11,
@@ -164,7 +164,7 @@ namespace GerenciadorJogos.Data.Seeds
                     Capa = "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/275850/header.jpg"
                 },
 
-                
+
                 new Jogo
                 {
                     Id = 16,

@@ -35,13 +35,31 @@ namespace GerenciadorJogos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Titulo,Ano,Capa")] Jogo jogo, List<int> plataformaIds, List<int> generoIds)
+        public async Task<IActionResult> Create(
+    [Bind("Titulo,Ano,Capa")] Jogo jogo,
+    List<int> plataformaIds,
+    Dictionary<int, decimal> valores,
+    List<int> generoIds)
         {
+            // ✅ Validação de título
             if (string.IsNullOrWhiteSpace(jogo.Titulo))
             {
                 ModelState.AddModelError("Titulo", "O título é obrigatório.");
             }
 
+            // ✅ Validação de plataformas
+            if (plataformaIds == null || plataformaIds.Count == 0)
+            {
+                ModelState.AddModelError("Plataformas", "Selecione pelo menos uma plataforma e informe o valor.");
+            }
+
+            // ✅ Validação de gêneros
+            if (generoIds == null || generoIds.Count == 0)
+            {
+                ModelState.AddModelError("Generos", "Selecione pelo menos um gênero.");
+            }
+
+            // ✅ Se tiver erro, recarrega o formulário
             if (!ModelState.IsValid)
             {
                 ViewBag.Plataformas = _context.Plataformas.ToList();
@@ -49,17 +67,35 @@ namespace GerenciadorJogos.Controllers
                 return View(jogo);
             }
 
+            // ✅ Salva o jogo
             _context.Add(jogo);
             await _context.SaveChangesAsync();
 
+            // ✅ Associa plataformas e valores
             foreach (var plataformaId in plataformaIds)
             {
-                _context.JogoPlataformas.Add(new JogoPlataforma { JogoId = jogo.Id, PlataformaId = plataformaId, Valor = 100.00m });
+                decimal valor = 0;
+                if (valores != null && valores.ContainsKey(plataformaId))
+                    valor = valores[plataformaId];
+
+                _context.JogoPlataformas.Add(new JogoPlataforma
+                {
+                    JogoId = jogo.Id,
+                    PlataformaId = plataformaId,
+                    Valor = valor
+                });
             }
+
+            // ✅ Associa gêneros
             foreach (var generoId in generoIds)
             {
-                _context.JogoGeneros.Add(new JogoGenero { JogoId = jogo.Id, GeneroId = generoId });
+                _context.JogoGeneros.Add(new JogoGenero
+                {
+                    JogoId = jogo.Id,
+                    GeneroId = generoId
+                });
             }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -126,7 +162,7 @@ namespace GerenciadorJogos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)  // <-- REMOVA ActionName("Delete")
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var jogo = await _context.Jogos
                 .Include(j => j.JogoPlataformas)

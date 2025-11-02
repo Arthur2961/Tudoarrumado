@@ -7,9 +7,9 @@ namespace GerenciadorJogos.Models
     {
         public int Id { get; set; }
         public string? Titulo { get; set; }
+        [Required(ErrorMessage = "O Ano é obrigatório")]
         public int Ano { get; set; }
-        [DataType(DataType.Currency)]
-        public decimal? Valor { get; set; }
+
 
         [Required(ErrorMessage = "A URL da capa é obrigatória.")]
         [Url(ErrorMessage = "A capa deve ser uma URL válida.")]

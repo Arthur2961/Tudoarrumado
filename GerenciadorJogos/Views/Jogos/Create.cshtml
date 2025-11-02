@@ -78,6 +78,9 @@
     .text-danger {
         color: #ff6666;
         font-size: 0.9em;
+        display: block;
+        margin-top: 5px;
+        margin-bottom: 10px;
     }
 
     .btn-success {
@@ -140,6 +143,11 @@
 
         <div class="form-group">
             <label>Plataformas e Valor</label>
+
+            <span class="text-danger">
+                @Html.ValidationMessage("Plataformas")
+            </span>
+
             @foreach (var p in ViewBag.Plataformas)
             {
                 <div class="form-check">
@@ -152,6 +160,11 @@
 
         <div class="form-group">
             <label>Gêneros</label>
+
+            <span class="text-danger">
+                @Html.ValidationMessage("Generos")
+            </span>
+
             @foreach (var genero in ViewBag.Generos)
             {
                 <div class="form-check">
@@ -169,6 +182,7 @@
 </div>
 
 @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

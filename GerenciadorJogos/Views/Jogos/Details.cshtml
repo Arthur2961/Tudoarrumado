@@ -162,7 +162,10 @@
                     {
                         foreach (var jp in Model.JogoPlataformas)
                         {
-                            <li>@jp.Plataforma.Nome</li>
+                            <li>
+                                <span class="nome-plataforma">@jp.Plataforma.Nome</span>
+                                <span class="preco-plataforma">— R$ @jp.Valor.ToString("F2")</span>
+                            </li>
                         }
                     }
                     else

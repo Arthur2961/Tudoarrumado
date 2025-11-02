@@ -21,14 +21,14 @@ namespace GerenciadorJogos.Data
         {
             base.OnModelCreating(modelBuilder);
 
-           
+
             modelBuilder.Entity<JogoPlataforma>()
                 .HasKey(jp => new { jp.JogoId, jp.PlataformaId });
 
             modelBuilder.Entity<JogoGenero>()
                 .HasKey(jg => new { jg.JogoId, jg.GeneroId });
 
-           
+
             modelBuilder.Entity<JogoPlataforma>()
                 .HasOne(jp => jp.Jogo)
                 .WithMany(j => j.JogoPlataformas)
@@ -49,7 +49,7 @@ namespace GerenciadorJogos.Data
                 .WithMany(g => g.JogoGeneros)
                 .HasForeignKey(jg => jg.GeneroId);
 
-           
+
             SeedData.Popular(modelBuilder);
         }
     }

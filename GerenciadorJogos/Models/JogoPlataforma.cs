@@ -11,4 +11,3 @@
         public Plataforma Plataforma { get; set; }
     }
 }
-
